@@ -1,0 +1,8 @@
+event_name,events,users,events_missing_user,events_missing_session_id,missing_session_id_pct
+page_view,1350428,269792,0,0,0.0
+view_item,386068,61252,0,0,0.0
+session_start,354970,267116,0,0,0.0
+add_to_cart,58543,12545,0,0,0.0
+begin_checkout,38757,9715,0,0,0.0
+add_payment_info,13899,5751,0,0,0.0
+purchase,5692,4419,0,0,0.0
