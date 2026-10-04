@@ -1,0 +1,7 @@
+stage_order,stage,users,users_step_conversion_pct,users_drop_off_pct
+1,Sessions,270154,,
+2,Product view,61252,22.67,77.33
+3,Add to cart,12545,20.48,79.52
+4,Begin checkout,9715,77.44,22.56
+5,Add payment info,5751,59.2,40.8
+6,Purchase,4055,70.51,29.49

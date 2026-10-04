@@ -14,6 +14,9 @@
 --   * conversion_rate = users with at least one order / users. revenue_per_user divides by ALL users
 --     in the channel; aov (average order value) divides revenue by orders.
 --
+--   * The funnel by channel (block 2) needs users_cart_window from 04_funnel_analysis.sql, so run
+--     04 before this file.
+--
 -- Run: python scripts/run_sql.py sql/05_channel_analysis.sql
 
 
@@ -57,7 +60,9 @@ CROSS JOIN totals AS t
 ORDER BY w.is_total, w.revenue_usd DESC;
 
 
--- 2. Where each channel loses people: step-by-step conversion (open funnel, users)
+-- 2. Where each channel loses people: step-by-step conversion (open funnel, users).
+--    Uses only users active from 26 Nov 2020 (users_cart_window, built in 04_funnel_analysis.sql),
+--    because add_to_cart events are missing for most of 1-25 Nov and would distort the cart steps.
 -- @export: 05_channel_funnel.csv
 SELECT
   acq_channel,
@@ -73,7 +78,7 @@ SELECT
   ROUND(100 * SAFE_DIVIDE(COUNTIF(reached_add_payment_info), COUNTIF(reached_begin_checkout)), 2) AS payment_pct_of_checkout,
   ROUND(100 * SAFE_DIVIDE(COUNTIF(purchased), COUNTIF(reached_add_payment_info)), 2) AS purchase_pct_of_payment,
   ROUND(100 * SAFE_DIVIDE(COUNTIF(purchased), COUNTIF(reached_view_item)), 2) AS purchase_pct_of_viewers
-FROM users
+FROM users_cart_window
 GROUP BY acq_channel
 ORDER BY users DESC;
 

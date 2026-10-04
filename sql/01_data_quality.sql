@@ -132,7 +132,28 @@ WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
   AND event_name = 'purchase';
 
 
--- 7. Start-date cut-off: how many users already look "returning" the first time we see them
+-- 7. Day-by-day tracking check: does each funnel event fire steadily for the whole period?
+--    Found while analysing seasonality: add_to_cart is missing on 18 of 92 days (almost all of
+--    1-25 Nov), transaction ids are missing on every purchase until about 11 Nov, and from 26 Jan
+--    most purchase events lose their revenue (232 of 282 on 26-31 Jan). The analyses account for
+--    each of these.
+-- @export: 01_dq_daily_tracking.csv
+SELECT
+  PARSE_DATE('%Y%m%d', event_date) AS event_date,
+  COUNTIF(event_name = 'view_item') AS view_item_events,
+  COUNTIF(event_name = 'add_to_cart') AS add_to_cart_events,
+  COUNTIF(event_name = 'begin_checkout') AS begin_checkout_events,
+  COUNTIF(event_name = 'add_payment_info') AS add_payment_info_events,
+  COUNTIF(event_name = 'purchase') AS purchase_events,
+  COUNTIF(event_name = 'purchase' AND (ecommerce.transaction_id IS NULL OR ecommerce.transaction_id = '(not set)')) AS purchase_events_without_id,
+  COUNTIF(event_name = 'purchase' AND (ecommerce.purchase_revenue_in_usd IS NULL OR ecommerce.purchase_revenue_in_usd = 0)) AS purchase_events_zero_revenue
+FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
+GROUP BY event_date
+ORDER BY event_date;
+
+
+-- 8. Start-date cut-off: how many users already look "returning" the first time we see them
 --    (ga_session_number > 1 means they visited before 1 Nov 2020)
 -- @export: 01_dq_new_vs_returning_at_start.csv
 WITH first_seen AS (

@@ -15,7 +15,10 @@
 --     so a view here means "this product was shown in a view_item event", counted once per event.
 --   * Cart adds: an add_to_cart event lists ~12 items but only the one actually added carries a
 --     quantity. Only 64% of add_to_cart events identify the added product, so cart_adds is a
---     partial count (assumed to under-count every product alike).
+--     partial count (assumed to under-count every product alike). add_to_cart is also missing for
+--     most of 1-25 Nov, so view_to_cart_pct and cart_to_purchase_pct only use impressions and order
+--     lines from 26 Nov onward (impressions_cart_window, order_lines_cart_window); they are
+--     indicative only. The quadrants use view_to_purchase_pct, which does not depend on cart events.
 --   * Purchases come from the same cleaned orders as 02_sessions.sql (one order per real
 --     transaction_id, id-less purchases kept only with revenue). Item revenue reconciles to the
 --     order revenue to within $50.
@@ -50,11 +53,16 @@ WITH aliases AS (
   ])
 ),
 impressions AS (
-  SELECT item_name, COUNT(*) AS impressions, COUNT(DISTINCT user_pseudo_id) AS impression_users
+  SELECT
+    item_name,
+    COUNT(*) AS impressions,
+    COUNT(DISTINCT user_pseudo_id) AS impression_users,
+    COUNTIF(event_date >= DATE '2020-11-26') AS impressions_cart_window
   FROM (
     SELECT DISTINCT
       user_pseudo_id,
       event_timestamp,
+      PARSE_DATE('%Y%m%d', event_date) AS event_date,
       COALESCE(a.canonical, REPLACE(item.item_name, '&quot;', '"')) AS item_name
     FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`, UNNEST(items) AS item
     LEFT JOIN aliases AS a ON a.raw = REPLACE(item.item_name, '&quot;', '"')
@@ -79,7 +87,7 @@ cart AS (
   GROUP BY item_name
 ),
 purchase_events AS (
-  SELECT user_pseudo_id, items
+  SELECT user_pseudo_id, PARSE_DATE('%Y%m%d', event_date) AS event_date, items
   FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
   WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
     AND event_name = 'purchase'
@@ -93,6 +101,7 @@ bought AS (
   SELECT
     COALESCE(a.canonical, REPLACE(item.item_name, '&quot;', '"')) AS item_name,
     COUNT(*) AS order_lines,
+    COUNTIF(event_date >= DATE '2020-11-26') AS order_lines_cart_window,
     COUNT(DISTINCT user_pseudo_id) AS buyers,
     SUM(item.quantity) AS units,
     SUM(item.item_revenue_in_usd) AS revenue_usd
@@ -117,9 +126,11 @@ base AS (
     END AS product_group,
     COALESCE(i.impressions, 0) AS impressions,
     COALESCE(i.impression_users, 0) AS impression_users,
+    COALESCE(i.impressions_cart_window, 0) AS impressions_cart_window,
     COALESCE(c.cart_adds, 0) AS cart_adds,
     COALESCE(c.cart_users, 0) AS cart_users,
     COALESCE(b.order_lines, 0) AS order_lines,
+    COALESCE(b.order_lines_cart_window, 0) AS order_lines_cart_window,
     COALESCE(b.buyers, 0) AS buyers,
     COALESCE(b.units, 0) AS units,
     COALESCE(b.revenue_usd, 0) AS revenue_usd
@@ -131,8 +142,8 @@ rated AS (
   SELECT
     *,
     ROUND(revenue_usd / NULLIF(units, 0), 2) AS avg_unit_price,
-    ROUND(100 * SAFE_DIVIDE(cart_adds, impressions), 3) AS view_to_cart_pct,
-    ROUND(100 * SAFE_DIVIDE(order_lines, cart_adds), 2) AS cart_to_purchase_pct,
+    ROUND(100 * SAFE_DIVIDE(cart_adds, impressions_cart_window), 3) AS view_to_cart_pct,
+    ROUND(100 * SAFE_DIVIDE(order_lines_cart_window, cart_adds), 2) AS cart_to_purchase_pct,
     ROUND(100 * SAFE_DIVIDE(order_lines, impressions), 3) AS view_to_purchase_pct,
     ROUND(SAFE_DIVIDE(revenue_usd, impressions), 4) AS revenue_per_view
   FROM base

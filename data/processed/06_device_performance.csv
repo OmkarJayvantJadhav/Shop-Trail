@@ -1,0 +1,4 @@
+device_category,sessions,users,pct_of_sessions,purchase,orders,revenue_usd,pct_of_revenue,conversion_rate_pct,revenue_per_session,aov
+desktop,208942,158917,58.02,2526,2818,196583.0,57.91,1.21,0.941,69.76
+mobile,143185,109195,39.76,1818,1997,136921.0,40.34,1.27,0.956,68.56
+tablet,8002,6250,2.22,91,92,5953.0,1.75,1.14,0.744,64.71
