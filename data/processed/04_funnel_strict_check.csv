@@ -1,0 +1,2 @@
+users_all,product_view,add_to_cart,begin_checkout,add_payment_info,purchase,strict_view_to_cart_pct,strict_cart_to_checkout_pct,strict_checkout_to_payment_pct,strict_payment_to_purchase_pct,strict_overall_conversion_pct
+270154,61252,12539,5656,3654,2643,20.47,45.11,64.6,72.33,0.98

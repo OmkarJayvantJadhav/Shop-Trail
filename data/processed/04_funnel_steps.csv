@@ -1,0 +1,8 @@
+stage_order,stage,is_diagnostic,users,sessions,users_step_conversion_pct,users_overall_conversion_pct,users_drop_off,users_drop_off_pct,sessions_step_conversion_pct,sessions_overall_conversion_pct,sessions_drop_off,sessions_drop_off_pct,users_drop_off_rank
+1,Sessions,False,270154,360129,,100.0,,,,100.0,,,
+2,Product view,False,61252,77020,22.67,22.67,208902,77.33,21.39,21.39,283109,78.61,2
+3,Add to cart,False,12545,15188,20.48,4.64,48707,79.52,19.72,4.22,61832,80.28,1
+4,Begin checkout,False,9715,11106,77.44,3.6,2830,22.56,73.12,3.08,4082,26.88,5
+5,Add shipping info (diagnostic),True,9714,11105,99.99,3.6,1,0.01,99.99,3.08,1,0.01,
+6,Add payment info,False,5751,6815,59.2,2.13,3964,40.8,61.36,1.89,4291,38.64,3
+7,Purchase,False,4055,4435,70.51,1.5,1696,29.49,65.08,1.23,2380,34.92,4
