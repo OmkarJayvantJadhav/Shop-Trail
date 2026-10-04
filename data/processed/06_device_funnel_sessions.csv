@@ -1,0 +1,4 @@
+device_category,sessions,users,pct_of_sessions,product_view,add_to_cart,begin_checkout,add_payment_info,purchase,orders,revenue_usd,pct_of_revenue,view_pct_of_sessions,cart_pct_of_view,checkout_pct_of_cart,payment_pct_of_checkout,purchase_pct_of_payment,conversion_rate_pct,revenue_per_session,aov
+desktop,208942,158917,58.02,44819,8790,6392,3885,2526,2818,196583.0,57.91,21.45,19.61,72.72,60.78,65.02,1.21,0.941,69.76
+mobile,143185,109195,39.76,30501,6077,4474,2778,1818,1997,136921.0,40.34,21.3,19.92,73.62,62.09,65.44,1.27,0.956,68.56
+tablet,8002,6250,2.22,1700,321,240,152,91,92,5953.0,1.75,21.24,18.88,74.77,63.33,59.87,1.14,0.744,64.71

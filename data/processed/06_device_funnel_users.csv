@@ -1,0 +1,4 @@
+device_category,users,product_view,add_to_cart,begin_checkout,add_payment_info,purchase,orders,revenue_usd,conversion_rate_pct
+desktop,156905,35697,7268,5600,3302,2318,2823,194997.0,1.48
+mobile,107175,24160,5007,3898,2317,1649,1986,137376.0,1.54
+tablet,6074,1395,270,217,132,88,98,7084.0,1.45
