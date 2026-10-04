@@ -1,0 +1,9 @@
+acq_channel,acq_medium,acq_source,users,purchasers,orders,conversion_rate_pct,revenue_usd,revenue_per_user
+Organic,organic,google,95255,1480,1785,1.55,120324.0,1.263
+Direct,(none),(direct),66233,1068,1322,1.61,95518.0,1.442
+Other (obscured),<Other>,<Other>,40862,240,267,0.59,15058.0,0.369
+Referral,referral,<Other>,26306,467,566,1.78,39363.0,1.496
+Referral,referral,shop.googlemerchandisestore.com,16362,422,520,2.58,38062.0,2.326
+Paid (cpc),cpc,google,14441,209,241,1.45,17997.0,1.246
+Organic,organic,<Other>,8867,130,163,1.47,10936.0,1.233
+Data deleted,(data deleted),(data deleted),1785,38,42,2.13,2167.0,1.214

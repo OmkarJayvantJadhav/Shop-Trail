@@ -1,0 +1,8 @@
+acq_channel,is_obscured,users,pct_of_users,sessions,sessions_per_user,purchasers,orders,conversion_rate_pct,revenue_usd,pct_of_revenue,revenue_per_user,aov
+Organic,False,104122,38.54,141493,1.36,1610,1948,1.55,131260.0,38.67,1.261,67.38
+Direct,False,66233,24.52,92288,1.39,1068,1322,1.61,95518.0,28.14,1.442,72.25
+Referral,False,42669,15.79,62621,1.47,889,1086,2.08,77425.0,22.81,1.815,71.29
+Paid (cpc),False,14441,5.35,19208,1.33,209,241,1.45,17997.0,5.3,1.246,74.68
+Other (obscured),True,40863,15.13,42506,1.04,240,267,0.59,15058.0,4.44,0.368,56.4
+Data deleted,True,1826,0.68,2013,1.1,39,43,2.14,2199.0,0.65,1.204,51.14
+All users,False,270154,100.0,360129,1.33,4055,4907,1.5,339457.0,100.0,1.257,69.18
