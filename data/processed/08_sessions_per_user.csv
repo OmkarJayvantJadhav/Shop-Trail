@@ -1,0 +1,6 @@
+sessions_bucket,min_sessions,users,pct_of_users,buyers,purchase_rate_pct,revenue_usd,pct_of_revenue,revenue_per_user
+1 session,1,222790,82.47,994,0.45,60108.0,17.71,0.27
+2 sessions,2,29536,10.93,830,2.81,59572.0,17.55,2.017
+3 sessions,3,8322,3.08,622,7.47,47725.0,14.06,5.735
+4-5 sessions,4,5925,2.19,779,13.15,74180.0,21.85,12.52
+6+ sessions,6,3581,1.33,830,23.18,97872.0,28.83,27.331

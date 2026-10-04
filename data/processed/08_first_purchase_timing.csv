@@ -1,0 +1,7 @@
+user_type,first_purchase_on,min_visit_number,buyers,pct_of_buyers,bought_on_first_day,median_days_after_first_visit
+new,First visit,1,1646,50.38,1646,0
+new,Second visit,2,655,20.05,303,1
+new,Third visit or later,3,966,29.57,97,6
+returning,First visit,1,296,37.56,296,0
+returning,Second visit,2,158,20.05,50,2
+returning,Third visit or later,3,334,42.39,11,14

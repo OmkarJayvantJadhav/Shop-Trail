@@ -1,0 +1,5 @@
+user_type,window_days,eligible_users,returned,return_rate_pct
+new,7,241890,18843,7.79
+new,30,172878,18220,10.54
+returning,7,8822,2216,25.12
+returning,30,8155,3163,38.79

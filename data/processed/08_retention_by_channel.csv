@@ -1,0 +1,7 @@
+acq_channel,new_users,eligible_7d_users,return_7d_pct,eligible_30d_users,returned_30d,return_30d_pct,purchase_rate_pct,revenue_per_user
+Organic,101659,94255,8.66,67428,7860,11.66,1.37,1.107
+Direct,63954,59270,9.03,42345,5178,12.23,1.33,1.084
+Other (obscured),40584,37513,1.34,26486,487,1.84,0.58,0.366
+Referral,39961,37027,10.04,26646,3601,13.51,1.49,1.237
+Paid (cpc),14300,13236,8.24,9534,1081,11.34,1.34,1.163
+Data deleted,690,589,2.89,439,13,2.96,1.01,0.867

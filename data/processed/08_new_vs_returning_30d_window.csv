@@ -1,0 +1,3 @@
+user_type,users,sessions_per_user,repeat_visit_rate_pct,buyers,purchase_rate_pct,orders,revenue_usd,revenue_per_user,aov
+new,172878,1.311,17.53,2597,1.5,3075,213635.0,1.236,69.47
+returning,8155,2.184,48.2,673,8.25,872,62645.0,7.682,71.84

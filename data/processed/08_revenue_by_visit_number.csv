@@ -1,0 +1,7 @@
+user_type,visit,min_visit_number,sessions,purchasing_sessions,conversion_rate_pct,orders,revenue_usd,pct_of_user_type_revenue
+new,1st visit,1,261148,1646,0.63,1750,112299.0,42.64
+new,2nd visit,2,42915,700,1.63,746,50639.0,19.23
+new,3rd visit or later,3,34502,1167,3.38,1347,100421.0,38.13
+returning,1st visit,1,9006,296,3.29,329,20998.0,27.59
+returning,2nd visit,2,4449,168,3.78,196,14646.0,19.25
+returning,3rd visit or later,3,8109,458,5.65,539,40454.0,53.16
