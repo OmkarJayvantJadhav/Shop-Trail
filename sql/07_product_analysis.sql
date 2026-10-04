@@ -32,25 +32,31 @@
 -- Run: python scripts/run_sql.py sql/07_product_analysis.sql --max-gb 15
 
 
+-- 0. Product name aliases, stored once so every product query uses the same map
+--    Purchase events spell these products differently from view/cart events (and their item ids
+--    differ too), so the same product would otherwise split into "shown but never sold" and
+--    "sold but never shown". Each pair below was matched by hand from the product list.
+-- @run: item_aliases
+CREATE OR REPLACE TABLE item_aliases AS
+SELECT raw, canonical FROM UNNEST([
+  STRUCT('Womens Google Striped LS' AS raw, "Google Women's Striped L/S" AS canonical),
+  STRUCT('Google F/C Longsleeve Charcoal', 'Google F/C Long Sleeve Tee Charcoal'),
+  STRUCT('Google F/C Longsleeve Ash', 'Google F/C Long Sleeve Tee Ash'),
+  STRUCT('Google Unisex Eco Tee Black', 'Google Eco Tee Black'),
+  STRUCT('Unisex Google Pocket Tee Grey', 'Google Pocket Tee Grey'),
+  STRUCT('Unisex Google Jumbo Print Tee White', 'Google Jumbo Print Tee White'),
+  STRUCT('Youth Jumbo Print Tee White', 'Google Youth Jumbo Print Tee White'),
+  -- same product carried under two names with shared item ids
+  STRUCT('Google Cloud  Unisex Zip Hoodie', 'Google Black Cloud Zip Hoodie'),
+  STRUCT('White Google Shoreline Bottle', 'Google Shoreline Water Bottle')
+]);
+
+
 -- 1. One row per product
 -- @run: products
 CREATE OR REPLACE TABLE products AS
 WITH aliases AS (
-  -- Purchase events spell these products differently from view/cart events (and their item ids
-  -- differ too), so the same product would otherwise split into "shown but never sold" and
-  -- "sold but never shown". Each pair below was matched by hand from the product list.
-  SELECT raw, canonical FROM UNNEST([
-    STRUCT('Womens Google Striped LS' AS raw, "Google Women's Striped L/S" AS canonical),
-    STRUCT('Google F/C Longsleeve Charcoal', 'Google F/C Long Sleeve Tee Charcoal'),
-    STRUCT('Google F/C Longsleeve Ash', 'Google F/C Long Sleeve Tee Ash'),
-    STRUCT('Google Unisex Eco Tee Black', 'Google Eco Tee Black'),
-    STRUCT('Unisex Google Pocket Tee Grey', 'Google Pocket Tee Grey'),
-    STRUCT('Unisex Google Jumbo Print Tee White', 'Google Jumbo Print Tee White'),
-    STRUCT('Youth Jumbo Print Tee White', 'Google Youth Jumbo Print Tee White'),
-    -- same product carried under two names with shared item ids
-    STRUCT('Google Cloud  Unisex Zip Hoodie', 'Google Black Cloud Zip Hoodie'),
-    STRUCT('White Google Shoreline Bottle', 'Google Shoreline Water Bottle')
-  ])
+  SELECT raw, canonical FROM item_aliases
 ),
 impressions AS (
   SELECT

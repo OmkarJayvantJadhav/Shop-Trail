@@ -1,0 +1,93 @@
+date,day_of_week,week_start,month_label,month_start,period,add_to_cart_reliable,purchase_data_reliable
+2020-11-01,Sunday,2020-10-26,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-02,Monday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-03,Tuesday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-04,Wednesday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-05,Thursday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-06,Friday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-07,Saturday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-08,Sunday,2020-11-02,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-09,Monday,2020-11-09,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-10,Tuesday,2020-11-09,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-11,Wednesday,2020-11-09,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-12,Thursday,2020-11-09,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-13,Friday,2020-11-09,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-14,Saturday,2020-11-09,Nov 2020,2020-11-01,Early November (baseline),False,True
+2020-11-15,Sunday,2020-11-09,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-16,Monday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-17,Tuesday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-18,Wednesday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-19,Thursday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-20,Friday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-21,Saturday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-22,Sunday,2020-11-16,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-23,Monday,2020-11-23,Nov 2020,2020-11-01,Mid-November (not compared),False,True
+2020-11-24,Tuesday,2020-11-23,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,False,True
+2020-11-25,Wednesday,2020-11-23,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,False,True
+2020-11-26,Thursday,2020-11-23,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,True,True
+2020-11-27,Friday,2020-11-23,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,True,True
+2020-11-28,Saturday,2020-11-23,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,True,True
+2020-11-29,Sunday,2020-11-23,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,True,True
+2020-11-30,Monday,2020-11-30,Nov 2020,2020-11-01,Black Friday / Cyber Monday week,True,True
+2020-12-01,Tuesday,2020-11-30,Dec 2020,2020-12-01,December,True,True
+2020-12-02,Wednesday,2020-11-30,Dec 2020,2020-12-01,December,True,True
+2020-12-03,Thursday,2020-11-30,Dec 2020,2020-12-01,December,True,True
+2020-12-04,Friday,2020-11-30,Dec 2020,2020-12-01,December,True,True
+2020-12-05,Saturday,2020-11-30,Dec 2020,2020-12-01,December,True,True
+2020-12-06,Sunday,2020-11-30,Dec 2020,2020-12-01,December,True,True
+2020-12-07,Monday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-08,Tuesday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-09,Wednesday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-10,Thursday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-11,Friday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-12,Saturday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-13,Sunday,2020-12-07,Dec 2020,2020-12-01,December,True,True
+2020-12-14,Monday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-15,Tuesday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-16,Wednesday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-17,Thursday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-18,Friday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-19,Saturday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-20,Sunday,2020-12-14,Dec 2020,2020-12-01,December,True,True
+2020-12-21,Monday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-22,Tuesday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-23,Wednesday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-24,Thursday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-25,Friday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-26,Saturday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-27,Sunday,2020-12-21,Dec 2020,2020-12-01,December,True,True
+2020-12-28,Monday,2020-12-28,Dec 2020,2020-12-01,December,True,True
+2020-12-29,Tuesday,2020-12-28,Dec 2020,2020-12-01,December,True,True
+2020-12-30,Wednesday,2020-12-28,Dec 2020,2020-12-01,December,True,True
+2020-12-31,Thursday,2020-12-28,Dec 2020,2020-12-01,December,True,True
+2021-01-01,Friday,2020-12-28,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-02,Saturday,2020-12-28,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-03,Sunday,2020-12-28,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-04,Monday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-05,Tuesday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-06,Wednesday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-07,Thursday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-08,Friday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-09,Saturday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-10,Sunday,2021-01-04,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-11,Monday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-12,Tuesday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-13,Wednesday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-14,Thursday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-15,Friday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-16,Saturday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-17,Sunday,2021-01-11,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-18,Monday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-19,Tuesday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-20,Wednesday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-21,Thursday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-22,Friday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-23,Saturday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-24,Sunday,2021-01-18,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-25,Monday,2021-01-25,Jan 2021,2021-01-01,January (1-25),True,True
+2021-01-26,Tuesday,2021-01-25,Jan 2021,2021-01-01,"Late January (revenue missing, not compared)",True,False
+2021-01-27,Wednesday,2021-01-25,Jan 2021,2021-01-01,"Late January (revenue missing, not compared)",True,False
+2021-01-28,Thursday,2021-01-25,Jan 2021,2021-01-01,"Late January (revenue missing, not compared)",True,False
+2021-01-29,Friday,2021-01-25,Jan 2021,2021-01-01,"Late January (revenue missing, not compared)",True,False
+2021-01-30,Saturday,2021-01-25,Jan 2021,2021-01-01,"Late January (revenue missing, not compared)",True,False
+2021-01-31,Sunday,2021-01-25,Jan 2021,2021-01-01,"Late January (revenue missing, not compared)",True,False
