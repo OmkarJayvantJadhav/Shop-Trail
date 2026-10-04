@@ -1,0 +1,2 @@
+users,distinct_users,total_sessions,new_users,returning_users,purchasing_users,orders,revenue_usd,eligible_7d_users,eligible_30d_users,new_user_return_7d_pct,new_user_return_30d_pct
+270154,270154,360129,261148,9006,4055,4907,339457.0,250712,181033,7.79,10.54
