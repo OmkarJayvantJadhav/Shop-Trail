@@ -1,0 +1,539 @@
+createOrReplace
+
+	table DimDate
+		dataCategory: Time
+
+		column date
+			dataType: dateTime
+			isKey
+			formatString: dd mmm yyyy
+			summarizeBy: none
+			sourceColumn: date
+
+		column day_of_week
+			dataType: string
+			summarizeBy: none
+			sourceColumn: day_of_week
+
+		column week_start
+			dataType: dateTime
+			formatString: dd mmm yyyy
+			summarizeBy: none
+			sourceColumn: week_start
+
+		column month_label
+			dataType: string
+			summarizeBy: none
+			sourceColumn: month_label
+
+		column month_start
+			dataType: dateTime
+			formatString: dd mmm yyyy
+			summarizeBy: none
+			sourceColumn: month_start
+
+		column period
+			dataType: string
+			summarizeBy: none
+			sourceColumn: period
+
+		column add_to_cart_reliable
+			dataType: boolean
+			summarizeBy: none
+			sourceColumn: add_to_cart_reliable
+
+		column purchase_data_reliable
+			dataType: boolean
+			summarizeBy: none
+			sourceColumn: purchase_data_reliable
+
+		partition DimDate = m
+			mode: import
+			source =
+					let
+						Source = Csv.Document(File.Contents("D:\ShopTrail\data\processed\10_dash_dim_date.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+						Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+						Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"day_of_week", type text}, {"week_start", type date}, {"month_label", type text}, {"month_start", type date}, {"period", type text}, {"add_to_cart_reliable", type logical}, {"purchase_data_reliable", type logical}}, "en-US")
+					in
+						Typed
+
+	table SessionFacts
+
+		column date
+			dataType: dateTime
+			formatString: dd mmm yyyy
+			summarizeBy: none
+			sourceColumn: date
+
+		column acq_channel
+			dataType: string
+			summarizeBy: none
+			sourceColumn: acq_channel
+
+		column device_category
+			dataType: string
+			summarizeBy: none
+			sourceColumn: device_category
+
+		column country
+			dataType: string
+			summarizeBy: none
+			sourceColumn: country
+
+		column user_type
+			dataType: string
+			summarizeBy: none
+			sourceColumn: user_type
+
+		column sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: sessions
+
+		column first_seen_users
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: first_seen_users
+
+		column product_view_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: product_view_sessions
+
+		column cart_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: cart_sessions
+
+		column cart_abandoned_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: cart_abandoned_sessions
+
+		column checkout_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: checkout_sessions
+
+		column checkout_abandoned_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: checkout_abandoned_sessions
+
+		column payment_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: payment_sessions
+
+		column purchasing_sessions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: purchasing_sessions
+
+		column orders
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: orders
+
+		column revenue_usd
+			dataType: double
+			isHidden
+			summarizeBy: none
+			sourceColumn: revenue_usd
+
+		measure 'Total Sessions' = SUM(SessionFacts[sessions])
+			formatString: #,0
+			displayFolder: Core
+
+		/// Users first seen in the selected dates. Over the whole period this equals the 270,154 users in the analysis.
+		measure 'Total Users' = SUM(SessionFacts[first_seen_users])
+			formatString: #,0
+			displayFolder: Core
+
+		measure 'Total Orders' = SUM(SessionFacts[orders])
+			formatString: #,0
+			displayFolder: Core
+
+		measure 'Total Revenue' = SUM(SessionFacts[revenue_usd])
+			formatString: $#,0
+			displayFolder: Core
+
+		measure 'Purchasing Sessions' = SUM(SessionFacts[purchasing_sessions])
+			formatString: #,0
+			displayFolder: Core
+
+		/// Share of sessions that end in an order.
+		measure 'Conversion Rate' = DIVIDE([Purchasing Sessions], [Total Sessions])
+			formatString: 0.00%
+			displayFolder: Core
+
+		/// Average order value.
+		measure AOV = DIVIDE([Total Revenue], [Total Orders])
+			formatString: $#,0.00
+			displayFolder: Core
+
+		measure 'Revenue per User' = DIVIDE([Total Revenue], [Total Users])
+			formatString: $#,0.00
+			displayFolder: Core
+
+		measure 'Revenue per Session' = DIVIDE([Total Revenue], [Total Sessions])
+			formatString: $#,0.00
+			displayFolder: Core
+
+		/// Funnel measures only count dates from 26 Nov 2020, when add_to_cart tracking works.
+		measure 'Funnel Sessions' = CALCULATE(SUM(SessionFacts[sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE()))
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Product View' = CALCULATE(SUM(SessionFacts[product_view_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE()))
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Cart' = CALCULATE(SUM(SessionFacts[cart_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE()))
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Checkout' = CALCULATE(SUM(SessionFacts[checkout_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE()))
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Payment' = CALCULATE(SUM(SessionFacts[payment_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE()))
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Purchase' = CALCULATE(SUM(SessionFacts[purchasing_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE()))
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Value' = SWITCH(SELECTEDVALUE(FunnelStages[stage]), "Sessions", [Funnel Sessions], "Product view", [Funnel Product View], "Add to cart", [Funnel Cart], "Begin checkout", [Funnel Checkout], "Add payment info", [Funnel Payment], "Purchase", [Funnel Purchase])
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Funnel Previous' = SWITCH(SELECTEDVALUE(FunnelStages[stage]), "Product view", [Funnel Sessions], "Add to cart", [Funnel Product View], "Begin checkout", [Funnel Cart], "Add payment info", [Funnel Checkout], "Purchase", [Funnel Payment])
+			formatString: #,0
+			displayFolder: Funnel
+
+		measure 'Step Conversion' = DIVIDE([Funnel Value], [Funnel Previous])
+			formatString: 0.0%
+			displayFolder: Funnel
+
+		measure 'Step Drop-off' = IF(ISBLANK([Step Conversion]), BLANK(), 1 - [Step Conversion])
+			formatString: 0.0%
+			displayFolder: Funnel
+
+		/// Share of funnel-window sessions that end in an order.
+		measure 'Funnel Conversion' = DIVIDE([Funnel Purchase], [Funnel Sessions])
+			formatString: 0.00%
+			displayFolder: Funnel
+
+		/// Share of sessions that added to cart and did not buy.
+		measure 'Cart Abandonment' = DIVIDE(CALCULATE(SUM(SessionFacts[cart_abandoned_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE())), [Funnel Cart])
+			formatString: 0.0%
+			displayFolder: Funnel
+
+		/// Share of sessions that began checkout and did not buy.
+		measure 'Checkout Abandonment' = DIVIDE(CALCULATE(SUM(SessionFacts[checkout_abandoned_sessions]), KEEPFILTERS(DimDate[add_to_cart_reliable] = TRUE())), [Funnel Checkout])
+			formatString: 0.0%
+			displayFolder: Funnel
+
+		partition SessionFacts = m
+			mode: import
+			source =
+					let
+						Source = Csv.Document(File.Contents("D:\ShopTrail\data\processed\10_dash_session_facts.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+						Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+						Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"acq_channel", type text}, {"device_category", type text}, {"country", type text}, {"user_type", type text}, {"sessions", Int64.Type}, {"first_seen_users", Int64.Type}, {"product_view_sessions", Int64.Type}, {"cart_sessions", Int64.Type}, {"cart_abandoned_sessions", Int64.Type}, {"checkout_sessions", Int64.Type}, {"checkout_abandoned_sessions", Int64.Type}, {"payment_sessions", Int64.Type}, {"purchasing_sessions", Int64.Type}, {"orders", Int64.Type}, {"revenue_usd", type number}}, "en-US")
+					in
+						Typed
+
+	table ProductDaily
+
+		column date
+			dataType: dateTime
+			formatString: dd mmm yyyy
+			summarizeBy: none
+			sourceColumn: date
+
+		column item_name
+			dataType: string
+			summarizeBy: none
+			sourceColumn: item_name
+
+		column product_group
+			dataType: string
+			summarizeBy: none
+			sourceColumn: product_group
+
+		column quadrant
+			dataType: string
+			summarizeBy: none
+			sourceColumn: quadrant
+
+		column impressions
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: impressions
+
+		column cart_adds
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: cart_adds
+
+		column order_lines
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: order_lines
+
+		column units
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: units
+
+		column revenue_usd
+			dataType: double
+			isHidden
+			summarizeBy: none
+			sourceColumn: revenue_usd
+
+		measure 'Product Revenue' = SUM(ProductDaily[revenue_usd])
+			formatString: $#,0
+			displayFolder: Products
+
+		/// Times the product was shown in a view_item event (impressions, not product-page visits).
+		measure 'Product Impressions' = SUM(ProductDaily[impressions])
+			formatString: #,0
+			displayFolder: Products
+
+		measure 'Product Orders' = SUM(ProductDaily[order_lines])
+			formatString: #,0
+			displayFolder: Products
+
+		partition ProductDaily = m
+			mode: import
+			source =
+					let
+						Source = Csv.Document(File.Contents("D:\ShopTrail\data\processed\10_dash_product_daily.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+						Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+						Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"item_name", type text}, {"product_group", type text}, {"quadrant", type text}, {"impressions", Int64.Type}, {"cart_adds", Int64.Type}, {"order_lines", Int64.Type}, {"units", Int64.Type}, {"revenue_usd", type number}}, "en-US")
+					in
+						Typed
+
+	table CohortDaily
+
+		column first_visit_date
+			dataType: dateTime
+			formatString: dd mmm yyyy
+			summarizeBy: none
+			sourceColumn: first_visit_date
+
+		column user_type
+			dataType: string
+			summarizeBy: none
+			sourceColumn: user_type
+
+		column users
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: users
+
+		column repeat_visitors
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: repeat_visitors
+
+		column eligible_7d_users
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: eligible_7d_users
+
+		column returned_7d
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: returned_7d
+
+		column eligible_30d_users
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: eligible_30d_users
+
+		column returned_30d
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: returned_30d
+
+		column buyers
+			dataType: int64
+			isHidden
+			summarizeBy: none
+			sourceColumn: buyers
+
+		column revenue_usd
+			dataType: double
+			isHidden
+			summarizeBy: none
+			sourceColumn: revenue_usd
+
+		/// Share of users (by first-visit date) with more than one session.
+		measure 'Repeat-visit Rate' = DIVIDE(SUM(CohortDaily[repeat_visitors]), SUM(CohortDaily[users]))
+			formatString: 0.0%
+			displayFolder: Retention
+
+		/// New users who came back on a later day within 7 days, among those with a full 7 days of follow-up.
+		measure '7-day Return Rate' = CALCULATE(DIVIDE(SUM(CohortDaily[returned_7d]), SUM(CohortDaily[eligible_7d_users])), CohortDaily[user_type] = "new")
+			formatString: 0.0%
+			displayFolder: Retention
+
+		/// New users who came back on a later day within 30 days, among those with a full 30 days of follow-up (first visit on or before 1 Jan 2021).
+		measure '30-day Return Rate' = CALCULATE(DIVIDE(SUM(CohortDaily[returned_30d]), SUM(CohortDaily[eligible_30d_users])), CohortDaily[user_type] = "new")
+			formatString: 0.0%
+			displayFolder: Retention
+
+		partition CohortDaily = m
+			mode: import
+			source =
+					let
+						Source = Csv.Document(File.Contents("D:\ShopTrail\data\processed\10_dash_cohort_daily.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+						Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+						Typed = Table.TransformColumnTypes(Promoted, {{"first_visit_date", type date}, {"user_type", type text}, {"users", Int64.Type}, {"repeat_visitors", Int64.Type}, {"eligible_7d_users", Int64.Type}, {"returned_7d", Int64.Type}, {"eligible_30d_users", Int64.Type}, {"returned_30d", Int64.Type}, {"buyers", Int64.Type}, {"revenue_usd", type number}}, "en-US")
+					in
+						Typed
+
+	table FunnelStages
+
+		column stage_order
+			dataType: int64
+			summarizeBy: none
+			sourceColumn: stage_order
+
+		column stage
+			dataType: string
+			summarizeBy: none
+			sortByColumn: stage_order
+			sourceColumn: stage
+
+		partition FunnelStages = m
+			mode: import
+			source =
+					let
+						Source = Csv.Document(File.Contents("D:\ShopTrail\data\processed\10_dash_funnel_stages.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+						Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+						Typed = Table.TransformColumnTypes(Promoted, {{"stage_order", Int64.Type}, {"stage", type text}}, "en-US")
+					in
+						Typed
+
+	table Products
+
+		column item_name
+			dataType: string
+			summarizeBy: none
+			sourceColumn: item_name
+
+		column product_group
+			dataType: string
+			summarizeBy: none
+			sourceColumn: product_group
+
+		column quadrant
+			dataType: string
+			summarizeBy: none
+			sourceColumn: quadrant
+
+		column impressions
+			dataType: int64
+			formatString: #,0
+			summarizeBy: none
+			sourceColumn: impressions
+
+		column cart_adds
+			dataType: int64
+			formatString: #,0
+			summarizeBy: none
+			sourceColumn: cart_adds
+
+		column order_lines
+			dataType: int64
+			formatString: #,0
+			summarizeBy: none
+			sourceColumn: order_lines
+
+		column revenue_usd
+			dataType: double
+			formatString: $#,0
+			summarizeBy: none
+			sourceColumn: revenue_usd
+
+		column avg_unit_price
+			dataType: double
+			formatString: $#,0.00
+			summarizeBy: none
+			sourceColumn: avg_unit_price
+
+		column view_to_purchase_pct
+			dataType: double
+			formatString: 0.000
+			summarizeBy: none
+			sourceColumn: view_to_purchase_pct
+
+		column meets_view_floor
+			dataType: boolean
+			summarizeBy: none
+			sourceColumn: meets_view_floor
+
+		column median_impressions
+			dataType: double
+			formatString: #,0
+			summarizeBy: none
+			sourceColumn: median_impressions
+
+		column median_view_to_purchase_pct
+			dataType: double
+			formatString: 0.000
+			summarizeBy: none
+			sourceColumn: median_view_to_purchase_pct
+
+		partition Products = m
+			mode: import
+			source =
+					let
+						Source = Csv.Document(File.Contents("D:\ShopTrail\data\processed\07_products.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+						Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+						Typed = Table.TransformColumnTypes(Promoted, {{"item_name", type text}, {"product_group", type text}, {"quadrant", type text}, {"impressions", Int64.Type}, {"cart_adds", Int64.Type}, {"order_lines", Int64.Type}, {"revenue_usd", type number}, {"avg_unit_price", type number}, {"view_to_purchase_pct", type number}, {"meets_view_floor", type logical}, {"median_impressions", type number}, {"median_view_to_purchase_pct", type number}}, "en-US"),
+						Kept = Table.SelectColumns(Typed, {"item_name", "product_group", "quadrant", "impressions", "cart_adds", "order_lines", "revenue_usd", "avg_unit_price", "view_to_purchase_pct", "meets_view_floor", "median_impressions", "median_view_to_purchase_pct"})
+					in
+						Kept
+
+	relationship SessionFacts_DimDate
+		fromColumn: SessionFacts.date
+		toColumn: DimDate.date
+
+	relationship ProductDaily_DimDate
+		fromColumn: ProductDaily.date
+		toColumn: DimDate.date
+
+	relationship CohortDaily_DimDate
+		fromColumn: CohortDaily.first_visit_date
+		toColumn: DimDate.date
+
+	relationship ProductDaily_Products
+		fromColumn: ProductDaily.item_name
+		toColumn: Products.item_name
