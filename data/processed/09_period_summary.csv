@@ -1,0 +1,7 @@
+period_order,period,is_comparison,days,users,avg_daily_users,sessions,sessions_per_day,pct_users_new_in_period,purchasing_sessions,buyers,orders,orders_per_day,revenue_usd,revenue_per_day,session_conversion_pct,user_conversion_pct,aov,daily_users_vs_baseline_pct,sessions_per_day_vs_baseline_pct,orders_per_day_vs_baseline_pct,revenue_per_day_vs_baseline_pct,conversion_vs_baseline_pct,aov_vs_baseline_pct
+1,Early November (baseline),True,14,36310,2958.0,47911,3422.0,87.96,578,553,645,46.1,44653.0,3190.0,1.206,1.523,69.23,0.0,0.0,0.0,0.0,0.0,0.0
+2,Black Friday / Cyber Monday week,True,7,22633,3537.0,28403,4058.0,87.15,550,535,597,85.3,47624.0,6803.0,1.936,2.364,79.77,19.6,18.6,85.1,113.3,60.5,15.2
+3,December,True,31,104302,3819.0,133351,4302.0,93.89,2030,1897,2303,74.3,158136.0,5101.0,1.522,1.819,68.67,29.1,25.7,61.3,59.9,26.2,-0.8
+4,January (1-25),True,25,77900,3462.0,95941,3838.0,94.76,793,769,841,33.6,54359.0,2174.0,0.827,0.987,64.64,17.1,12.1,-27.0,-31.8,-31.5,-6.6
+8,"Late January (revenue missing, not compared)",False,6,18477,3308.0,22436,3739.0,88.66,48,48,48,8.0,2151.0,359.0,0.214,0.26,44.81,11.8,9.3,-82.6,-88.8,-82.3,-35.3
+9,Mid-November (not compared),False,9,24591,3058.0,32087,3565.0,86.87,436,422,473,52.6,32534.0,3615.0,1.359,1.716,68.78,3.4,4.2,14.1,13.3,12.6,-0.6

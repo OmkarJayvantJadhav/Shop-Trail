@@ -1,0 +1,25 @@
+period_order,period,acq_channel,sessions,pct_of_period_sessions,purchasing_sessions,session_conversion_pct,revenue_usd
+1,Early November (baseline),Organic,18413,38.43,205,1.113,14506.0
+1,Early November (baseline),Direct,12308,25.69,151,1.227,13172.0
+1,Early November (baseline),Referral,9086,18.96,144,1.585,11705.0
+1,Early November (baseline),Other (obscured),5035,10.51,39,0.775,2747.0
+1,Early November (baseline),Paid (cpc),2467,5.15,27,1.094,1908.0
+1,Early November (baseline),Data deleted,602,1.26,12,1.993,615.0
+2,Black Friday / Cyber Monday week,Organic,11179,39.36,214,1.914,19863.0
+2,Black Friday / Cyber Monday week,Direct,7191,25.32,151,2.1,12594.0
+2,Black Friday / Cyber Monday week,Referral,5171,18.21,127,2.456,10782.0
+2,Black Friday / Cyber Monday week,Other (obscured),3187,11.22,29,0.91,2086.0
+2,Black Friday / Cyber Monday week,Paid (cpc),1489,5.24,25,1.679,2081.0
+2,Black Friday / Cyber Monday week,Data deleted,186,0.65,4,2.151,218.0
+3,December,Organic,52626,39.46,838,1.592,65327.0
+3,December,Direct,34147,25.61,536,1.57,42205.0
+3,December,Referral,22853,17.14,442,1.934,34503.0
+3,December,Other (obscured),15913,11.93,91,0.572,5479.0
+3,December,Paid (cpc),7260,5.44,109,1.501,9654.0
+3,December,Data deleted,552,0.41,14,2.536,968.0
+4,January (1-25),Organic,37965,39.57,321,0.846,20075.0
+4,January (1-25),Direct,24499,25.54,220,0.898,18280.0
+4,January (1-25),Referral,15766,16.43,155,0.983,10619.0
+4,January (1-25),Other (obscured),12303,12.82,52,0.423,2770.0
+4,January (1-25),Paid (cpc),5109,5.33,43,0.842,2596.0
+4,January (1-25),Data deleted,299,0.31,2,0.669,19.0

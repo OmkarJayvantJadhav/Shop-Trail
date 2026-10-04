@@ -1,0 +1,5 @@
+period_order,period,sessions,product_view_pct_of_sessions,begin_checkout_pct_of_sessions,checkout_per_100_product_view_sessions,payment_pct_of_checkout,purchase_pct_of_payment,session_conversion_pct
+1,Early November (baseline),47911,23.24,3.99,17.17,47.15,64.15,1.206
+2,Black Friday / Cyber Monday week,28403,23.74,4.74,19.98,59.17,69.01,1.936
+3,December,133351,20.98,3.27,15.59,65.66,70.88,1.522
+4,January (1-25),95941,18.62,1.73,9.31,72.26,66.03,0.827
