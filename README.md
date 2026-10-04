@@ -105,7 +105,7 @@ Confidence is lowest for #1 (returners may simply be more engaged people) and #3
 
 ## 9. Dashboard
 
-Built in Power BI Desktop on six small CSV tables (`10_dash_*.csv`, `07_products.csv`) with four relationships and 28 DAX measures. Slicers for date, device, channel, country and product group; the date slicer is synced across pages. The model script is in `dashboard/model.tmdl` and the report in `dashboard/ShopTrail.pbix`.
+Built in Power BI Desktop on six small CSV tables (`10_dash_*.csv`, `07_products.csv`) with four relationships and 28 DAX measures. Slicers for date, device, channel, country and product group; the date slicer is synced across pages. The look comes from a custom dark theme (`dashboard/theme/ShopTrail_Midnight.json`, import it from Design > Themes > Import theme). The model script is in `dashboard/model.tmdl` and the report in `dashboard/ShopTrail.pbix`.
 
 | Page | What it answers |
 | --- | --- |
@@ -138,6 +138,7 @@ ShopTrail/
 ├── dashboard/
 │   ├── ShopTrail.pbix
 │   ├── model.tmdl           # tables, relationships and measures
+│   ├── theme/               # Power BI theme (colours, fonts, card style)
 │   └── screenshots/
 ├── docs/
 │   └── data_dictionary.md
