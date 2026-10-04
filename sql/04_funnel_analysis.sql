@@ -211,7 +211,20 @@ LEFT JOIN steps AS prev ON prev.stage_order = cur.ref_order
 ORDER BY cur.stage_order;
 
 
--- 8. Evidence of the gap: the share of product-viewing sessions that also have an add_to_cart event, by day
+-- 8. Orders and revenue in the cart-tracking window (used to size the recommendations)
+-- @export: 04_funnel_window_value.csv
+SELECT
+  COUNT(*) AS users,
+  COUNTIF(purchased) AS buyers,
+  SUM(orders) AS orders,
+  ROUND(SUM(revenue_usd), 2) AS revenue_usd,
+  ROUND(SUM(revenue_usd) / COUNTIF(purchased), 2) AS revenue_per_buyer,
+  ROUND(SUM(revenue_usd) / SUM(orders), 2) AS aov,
+  DATE_DIFF(DATE '2021-01-31', DATE '2020-11-26', DAY) + 1 AS days_in_window
+FROM users_cart_window;
+
+
+-- 9. Evidence of the gap: the share of product-viewing sessions that also have an add_to_cart event, by day
 -- @export: 04_cart_tracking_daily.csv
 SELECT
   session_date AS date,

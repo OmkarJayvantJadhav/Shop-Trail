@@ -75,6 +75,35 @@ GROUP BY user_type
 ORDER BY users DESC;
 
 
+-- 2b. What a new user who returns within 30 days is worth versus one who does not, over the same
+--     30 days (new users with a full 30 days of follow-up). Returners had more chances to buy, so
+--     treat the gap as an upper bound on what winning back a user is worth.
+-- @export: 08_returner_value.csv
+WITH windowed AS (
+  SELECT
+    u.user_pseudo_id,
+    u.returned_within_30d,
+    SUM(s.orders) AS orders_in_window,
+    SUM(s.revenue_usd) AS revenue_in_window
+  FROM users AS u
+  JOIN sessions AS s USING (user_pseudo_id)
+  WHERE u.user_type = 'new'
+    AND u.eligible_30d
+    AND DATE_DIFF(s.session_date, u.first_visit_date, DAY) BETWEEN 0 AND 30
+  GROUP BY u.user_pseudo_id, u.returned_within_30d
+)
+SELECT
+  returned_within_30d,
+  COUNT(*) AS users,
+  COUNTIF(orders_in_window > 0) AS buyers,
+  ROUND(100 * COUNTIF(orders_in_window > 0) / COUNT(*), 2) AS purchase_rate_pct,
+  ROUND(SUM(revenue_in_window), 2) AS revenue_usd,
+  ROUND(SUM(revenue_in_window) / COUNT(*), 3) AS revenue_per_user
+FROM windowed
+GROUP BY returned_within_30d
+ORDER BY returned_within_30d;
+
+
 -- 3. Return rates within 7 and 30 days (eligible users only)
 -- @export: 08_retention_summary.csv
 SELECT user_type, 7 AS window_days, COUNTIF(eligible_7d) AS eligible_users,
